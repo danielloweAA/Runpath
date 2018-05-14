@@ -1,0 +1,39 @@
+<div class="container py-5">
+  <h1 class="mb-4">Runpath Technical Test</h1>
+
+  <nav class="navbar navbar-dark bg-dark row">
+    <input class="mr-sm-2 w-50" type="search" placeholder="Search images" aria-label="Search" [(ngModel)]="search">
+
+    <select class="custom-select w-25" (change)="setImageLimit($event)">
+      <option selected value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">All</option>
+    </select>
+  </nav>
+  
+  <div class="alert alert-danger mt-3" *ngIf="error">
+    <p>There has been an error please try again soon</p>
+  </div>
+  
+  <div class="alert alert-info mt-3" *ngIf="loading">
+    <p>Loading, please wait...</p>
+  </div>
+
+  <div class="row bg-light py-3 mb-3" *ngIf="!error && !loading">
+    <ng-container *ngFor="let data of (galleryData | search:search); let i = index">
+      <figure *ngIf="i < ((pageNumber) * imagesOnPage) && i >= ((pageNumber - 1) * imagesOnPage)" class="col-md-3 text-center">
+        <img [src]="data.thumbnailUrl" [title]="data.title" [alt]="data.title">
+        <figcaption>{{data.title}}</figcaption>
+      </figure>
+    </ng-container>
+  </div>
+
+  <app-pagination 
+    *ngIf="imagesOnPage !== 100 && galleryData"
+    [count]="galleryData"
+    [limitedTo]="imagesOnPage"
+    [pageNumber]="pageNumber"
+    (changePage)="changePage($event)">
+  </app-pagination>
+</div>
