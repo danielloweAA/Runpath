@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './gallery/gallery.component';
-import { SearchPipe } from './search.pipe';
 
 import { ImageService } from './image.service';
 import { PaginationComponent } from './gallery/pagination/pagination.component';
@@ -14,7 +13,6 @@ import { PaginationComponent } from './gallery/pagination/pagination.component';
   declarations: [
     AppComponent,
     GalleryComponent,
-    SearchPipe,
     PaginationComponent,
   ],
   imports: [

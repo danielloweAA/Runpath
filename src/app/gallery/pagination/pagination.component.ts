@@ -8,13 +8,13 @@ import { IImage } from '../../image.service';
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnChanges {
-  @Input() count: IImage[];
+  @Input() count: number;
   @Input() limitedTo: number;
   @Input() pageNumber: number;
 
   @Output() changePage = new EventEmitter();
 
-  public pages: Object;
+  public pages = [];
 
   constructor( ) { }
 
@@ -23,10 +23,14 @@ export class PaginationComponent implements OnChanges {
   }
 
   public setUpPagination() {
-    const numberOfPages = this.count.length / this.limitedTo;
+    const numberOfPages = this.count / this.limitedTo;
+    const pagesArr = [];
 
-    // Doesn't work in IE - could do a for loop or install polyfill
-    this.pages = Array(numberOfPages).fill(numberOfPages).map((x, i) => i + 1);
+    for (let i = 0; i < Math.ceil(numberOfPages); i++) {
+      pagesArr.push(i + 1);
+    }
+
+    this.pages = pagesArr;
   }
 
   public changePageEmit(value: string): void {

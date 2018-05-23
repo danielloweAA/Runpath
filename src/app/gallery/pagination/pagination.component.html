@@ -2,6 +2,6 @@
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="pageNumber === 1"><button class="page-link" (click)="changePageEmit('prev')">Previous</button></li>
       <li class="page-item" [class.active]="page === pageNumber" *ngFor="let page of pages"><button class="page-link" (click)="specificPageSelect(page)">{{page}}</button></li>
-      <li class="page-item" [class.disabled]="pageNumber * limitedTo === 100"><button class="page-link" (click)="changePageEmit('next')">Next</button></li>
+      <li class="page-item" [class.disabled]="pageNumber * limitedTo === 100 || count < limitedTo * pageNumber"><button class="page-link" (click)="changePageEmit('next')">Next</button></li>
     </ul>
   </nav>

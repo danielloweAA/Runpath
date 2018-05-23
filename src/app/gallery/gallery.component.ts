@@ -14,6 +14,9 @@ export class GalleryComponent implements OnInit {
   public imagesOnPage = 10;
   public loading: boolean;
   public error = false;
+  public numberOfImages: number;
+
+  private apiData: IImage[];
 
   constructor(
     private imageApi: ImageService,
@@ -30,12 +33,25 @@ export class GalleryComponent implements OnInit {
       data => {
         if (data) {
           this.loading = false;
-          this.galleryData = data.filter( val => val.id <= 100);
+          this.apiData = data.filter( val => val.id <= 100);
+          this.galleryData = this.apiData;
+          this.numberOfImages = this.galleryData.length;
         } else {
           this.error = true;
         }
       }
     );
+  }
+
+  public searchImages() {
+    if (this.search) {
+      const filteredData = this.apiData.filter(val => val.title.toLowerCase().includes(this.search.toLowerCase()) === true);
+      this.galleryData = filteredData;
+    } else {
+      this.galleryData = this.apiData;
+    }
+
+    this.numberOfImages = this.galleryData.length;
   }
 
   public setImageLimit(value) {
